@@ -1,0 +1,41 @@
+while True:
+    print("Good Day User!!!")
+
+    choice = input("Do you want to encrypt or decrypt? [E/D] ").lower()
+
+    if choice in ['e', 'd']:
+        message = input("Enter your message: ")
+        shift = int(input("Enter your shift number [numerics only]: "))
+
+        if choice == 'e':
+            encrypted_message = ""
+            for char in message:
+                if 32 <= ord(char) <= 126:  # only printable chars
+                    new_ascii = 32 + (ord(char) - 32 + shift) % 95
+                    encrypted_message += chr(new_ascii)
+                else:
+                    encrypted_message += char  # leave non-printable chars as-is
+            print("Encrypted Message:", encrypted_message)
+
+        elif choice == 'd':
+            decrypted_message = ""
+            for char in message:
+                if 32 <= ord(char) <= 126:
+                    new_ascii = 32 + (ord(char) - 32 - shift) % 95
+                    decrypted_message += chr(new_ascii)
+                else:
+                    decrypted_message += char
+            print("Decrypted Message:", decrypted_message)
+
+    else:
+        print("Invalid choice, please enter 'e' or 'd'.")
+        continue  # go back to top if invalid choice
+
+    user_choice = input("Do you wish to continue or quit? [C/Q]: ").lower()
+    if user_choice == 'c':
+        continue
+    elif user_choice == 'q':
+        print("Goodbye!")
+        break
+    else:
+        print("Wrong input, enter 'c' or 'q'.")
